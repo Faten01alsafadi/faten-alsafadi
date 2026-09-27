@@ -1,26 +1,264 @@
 @import "tailwindcss";
 
+/* =========================================================
+   1. DESIGN TOKENS
+   ========================================================= */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* -------------------------------------------------------
+     Primitive Colors
+     These are the raw values of the design system.
+     Components should not use them directly.
+     ------------------------------------------------------- */
+
+  --orange-500: #e8956d;
+  --orange-500-alpha: #e8956d4d;
+
+  --cream-100: #f0ece4;
+
+  --ink-950: #0f1115;
+
+  --surface-900: #181b22;
+  --surface-800: #242226;
+  --surface-850: #16171b;
+
+  /* -------------------------------------------------------
+     Semantic Colors
+     These describe the purpose of each color.
+     Components should use semantic tokens.
+     ------------------------------------------------------- */
+
+  --semantic-background: var(--ink-950);
+
+  --semantic-surface: var(--surface-900);
+
+  --semantic-surface-featured: var(--surface-800);
+
+  --semantic-foreground: var(--cream-100);
+
+  --semantic-foreground-muted: rgba(240, 236, 228, 0.3);
+
+  --semantic-primary: var(--orange-500);
+
+  --semantic-primary-soft: var(--orange-500-alpha);
+
+  --semantic-border: rgba(240, 236, 228, 0.2);
+
+  --semantic-border-accent: var(--orange-500);
+
+  --semantic-section-number: var(--surface-850);
+
+  /* -------------------------------------------------------
+     Typography
+     The actual font variables are provided by next/font
+     in layout.tsx.
+     ------------------------------------------------------- */
+
+  --semantic-font-display: var(--font-fraunces);
+
+  --semantic-font-body: var(--font-outfit);
+
+  --semantic-font-mono: var(--font-jetbrains);
+
+  /* -------------------------------------------------------
+     Layout
+     ------------------------------------------------------- */
+
+  --container-max-width: 1200px;
+
+  --container-padding: 1.25rem;
+
+  /* -------------------------------------------------------
+     Spacing Scale
+     ------------------------------------------------------- */
+
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+  --space-24: 6rem;
+
+  /* -------------------------------------------------------
+     Border Radius
+     ------------------------------------------------------- */
+
+  --radius-sm: 0.375rem;
+  --radius-md: 0.625rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+  --radius-full: 9999px;
+
+  /* -------------------------------------------------------
+     Motion
+     ------------------------------------------------------- */
+
+  --duration-fast: 150ms;
+  --duration-normal: 250ms;
+  --duration-slow: 400ms;
+
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+
+  /* -------------------------------------------------------
+     Accessibility / Focus
+     ------------------------------------------------------- */
+
+  --focus-ring-width: 2px;
+  --focus-ring-offset: 3px;
 }
+
+
+/* =========================================================
+   2. TAILWIND THEME TOKENS
+   ========================================================= */
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-background: var(--semantic-background);
+
+  --color-surface: var(--semantic-surface);
+
+  --color-surface-featured: var(--semantic-surface-featured);
+
+  --color-foreground: var(--semantic-foreground);
+
+  --color-foreground-muted: var(--semantic-foreground-muted);
+
+  --color-primary: var(--semantic-primary);
+
+  --color-primary-soft: var(--semantic-primary-soft);
+
+  --color-border: var(--semantic-border);
+
+  --color-border-accent: var(--semantic-border-accent);
+
+  --color-section-number: var(--semantic-section-number);
+
+  --font-display: var(--semantic-font-display);
+
+  --font-body: var(--semantic-font-body);
+
+  --font-mono: var(--semantic-font-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+
+/* =========================================================
+   3. DOCUMENT / PAGE DEFAULTS
+   ========================================================= */
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  min-height: 100vh;
+
+  background-color: var(--semantic-background);
+
+  color: var(--semantic-foreground);
+
+  font-family: var(--semantic-font-body);
+
+  text-rendering: optimizeLegibility;
+
+  -webkit-font-smoothing: antialiased;
+
+  -moz-osx-font-smoothing: grayscale;
+}
+
+
+/* =========================================================
+   4. CONTAINER
+   ========================================================= */
+
+.container {
+  width: min(
+    calc(100% - (var(--container-padding) * 2)),
+    var(--container-max-width)
+  );
+
+  margin-inline: auto;
+}
+
+
+/* =========================================================
+   5. GLOBAL ELEMENT DEFAULTS
+   ========================================================= */
+
+a {
+  color: inherit;
+
+  text-decoration: none;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+
+/* =========================================================
+   6. ACCESSIBILITY
+   ========================================================= */
+
+:focus-visible {
+  outline: var(--focus-ring-width) solid var(--semantic-primary);
+
+  outline-offset: var(--focus-ring-offset);
+}
+
+
+/* =========================================================
+   7. TEXT SELECTION
+   ========================================================= */
+
+::selection {
+  background-color: var(--semantic-primary);
+
+  color: var(--semantic-background);
+}
+
+
+/* =========================================================
+   8. REDUCED MOTION
+   Respect users who prefer reduced motion.
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+
+    animation-iteration-count: 1 !important;
+
+    transition-duration: 0.01ms !important;
+
+    scroll-behavior: auto !important;
+  }
+}
+
+
+/* =========================================================
+   9. RESPONSIVE CONTAINER
+   ========================================================= */
+
+@media (min-width: 768px) {
+  :root {
+    --container-padding: 2rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  :root {
+    --container-padding: 2.5rem;
+  }
 }
