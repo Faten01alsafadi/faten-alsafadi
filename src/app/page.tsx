@@ -1,8 +1,25 @@
-import Image from "next/image";
+
+
 
 export default function Home() {
   return (
      <main className="container py-24">
+
+
+<p className="font-mono text-2xl">
+  JetBrains Mono TEST 123
+</p>
+
+<p className="font-body text-2xl">
+  Outfit TEST 123
+</p>
+
+<p className="font-display text-2xl">
+  Fraunces TEST 123
+</p>
+
+
+   
       <p className="font-mono text-primary">
         01 / PORTFOLIO
       </p>

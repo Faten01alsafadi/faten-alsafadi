@@ -6,6 +6,7 @@ import {
 } from "next/font/google";
 
 import "./globals.css";
+import Navbar from "@/components/layout/Navbar";
 
 
 const fraunces = Fraunces({
@@ -44,6 +45,7 @@ export default function RootLayout({
       <body
         className={`${fraunces.variable} ${outfit.variable} ${jetbrainsMono.variable}`}
       >
+        <Navbar/>
         {children}
       </body>
     </html>
