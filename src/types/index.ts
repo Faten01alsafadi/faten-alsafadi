@@ -33,3 +33,10 @@ export type Education = {
   faculty: string;
   focus: string;
 };
+export type ContactOption = {
+  label: string;
+  value: string;
+  description: string;
+  href: string;
+  icon: "email" | "linkedin" | "github";
+};
