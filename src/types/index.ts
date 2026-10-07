@@ -22,3 +22,14 @@ export type TrainingExperience = {
   description: string;
   technologies: string[];
 };
+export type Education = {
+  number: string;
+  institution: string;
+  institutionType: string;
+  degree: string;
+  field: string;
+  status: string;
+  year: string;
+  faculty: string;
+  focus: string;
+};
