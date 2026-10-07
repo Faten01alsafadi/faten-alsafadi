@@ -1,41 +1,11 @@
+import Hero from "@/components/sections/Hero";
 
 
 
 export default function Home() {
   return (
-     <main className="container py-24">
-
-
-<p className="font-mono text-2xl">
-  JetBrains Mono TEST 123
-</p>
-
-<p className="font-body text-2xl">
-  Outfit TEST 123
-</p>
-
-<p className="font-display text-2xl">
-  Fraunces TEST 123
-</p>
-
-
-   
-      <p className="font-mono text-primary">
-        01 / PORTFOLIO
-      </p>
-
-      <h1 className="mt-4 font-display text-5xl text-foreground">
-        Faten Alsafadi
-      </h1>
-
-      <p className="mt-4 max-w-xl text-foreground-muted">
-        Frontend Developer focused on React, TypeScript and modern web
-        experiences.
-      </p>
-
-      <button className="mt-8 rounded-full bg-primary px-6 py-3 text-background">
-        View Projects
-      </button>
+     <main className=" py-3">
+     <Hero/>
     </main>
   );
 }
