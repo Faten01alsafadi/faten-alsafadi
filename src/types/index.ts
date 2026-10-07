@@ -11,3 +11,14 @@ export type Project = {
   role: string;
   featured?: boolean;
 };
+
+export type TrainingExperience = {
+  number: string;
+  organization: string;
+  duration?: string;
+  title: string;
+  specialization: string;
+  certificate?: string;
+  description: string;
+  technologies: string[];
+};
