@@ -1,3 +1,4 @@
+
 export type Project = {
   number: string;
   category: string;
@@ -6,7 +7,7 @@ export type Project = {
   image?: string;
   technologies: string[];
   features: string[];
-  github: string;
+  github?: string;
   liveDemo?: string;
   role: string;
   featured?: boolean;
@@ -22,6 +23,7 @@ export type TrainingExperience = {
   description: string;
   technologies: string[];
 };
+
 export type Education = {
   number: string;
   institution: string;
@@ -33,6 +35,7 @@ export type Education = {
   faculty: string;
   focus: string;
 };
+
 export type ContactOption = {
   label: string;
   value: string;

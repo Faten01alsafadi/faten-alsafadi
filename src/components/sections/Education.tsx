@@ -1,3 +1,5 @@
+
+import Reveal from "@/components/ui/Reveal";
 import EducationCard from "@/components/ui/EducationCard";
 import { education } from "@/data/education";
 
@@ -10,38 +12,43 @@ export default function Education() {
     >
       <div className="container">
         <div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-end lg:gap-20">
-          {/* Section heading */}
-          <div>
-            <div
-              aria-hidden="true"
-              className="mb-6 font-mono text-[10rem] font-medium leading-none tracking-[-0.08em] text-section-number/70 md:text-[12rem]"
-            >
-              {education.number}
-            </div>
-
-            <div className="-mt-8 md:-mt-10">
-              <div className="flex items-center gap-3">
-                <span
-                  aria-hidden="true"
-                  className="h-px w-8 bg-primary"
-                />
-
-                <p className="font-mono text-xs uppercase tracking-[0.16em] text-primary">
-                  Education
-                </p>
+          {/* Section Heading */}
+          <Reveal direction="up" distance={18} duration={800}>
+            <div>
+              {/* Section Number */}
+              <div
+                aria-hidden="true"
+                className="mb-6 font-display text-[9rem] font-extralight leading-none tracking-[-0.08em] text-section-number/70 sm:text-[11rem] md:text-[12rem]"
+              >
+                {education.number}
               </div>
 
-              <h2
-                id="education-title"
-                className="mt-3 font-display text-4xl font-medium tracking-[-0.03em] text-foreground sm:text-5xl"
-              >
-                Academic background
-              </h2>
-            </div>
-          </div>
+              <div className="-mt-8 md:-mt-10">
+                <div className="flex items-center gap-3">
+                  <span
+                    aria-hidden="true"
+                    className="h-px w-8 bg-primary"
+                  />
 
-          {/* Education card */}
-          <EducationCard education={education} />
+                  <p className="font-mono text-xs uppercase tracking-[0.16em] text-primary">
+                    Education
+                  </p>
+                </div>
+
+                <h2
+                  id="education-title"
+                  className="mt-3 font-display text-4xl font-medium tracking-[-0.03em] text-foreground sm:text-5xl"
+                >
+                  Academic background
+                </h2>
+              </div>
+            </div>
+          </Reveal>
+
+          {/* Education Card */}
+          <Reveal direction="up" distance={20} duration={850} delay={150}>
+            <EducationCard education={education} />
+          </Reveal>
         </div>
       </div>
     </section>

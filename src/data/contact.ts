@@ -1,3 +1,4 @@
+
 import type { ContactOption } from "@/types";
 
 export const contactOptions: ContactOption[] = [

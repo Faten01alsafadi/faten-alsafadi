@@ -81,10 +81,12 @@ export const skillCategories: SkillCategory[] = [
       "Feature-based Structure",
       "API Documentation",
       "Working with Codebases",
+      "AI-Assisted Development",
     ],
   },
   {
     title: "Also Familiar With",
     skills: ["Angular"],
   },
+
 ];

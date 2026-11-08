@@ -1,7 +1,7 @@
 import type { Education } from "@/types";
 
 export const education: Education = {
-  number: "05",
+  number: "06",
   institution: "Latakia University",
   institutionType: "University",
   degree: "Bachelor of Engineering",

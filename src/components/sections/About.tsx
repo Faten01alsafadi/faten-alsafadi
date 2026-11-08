@@ -1,112 +1,122 @@
-import SectionHeading from "@/components/ui/SectionHeading";
 
-const highlights = [
-  {
-    value: "3+",
-    label: "Training Programs",
-  },
-  {
-    value: "3+",
-    label: "Completed Projects",
-  },
-  {
-    value: "Y4",
-    label: "Informatics Engineering",
-  },
-  {
-    value: "2+",
-    label: "Years of Learning",
-  },
-];
+import Reveal from "@/components/ui/Reveal";
+
+import {
+  aboutHighlights,
+  aboutParagraphs,
+} from "@/data/about";
 
 export default function About() {
   return (
     <section
       id="about"
       aria-labelledby="about-title"
-      className="border-b border-border py-24 md:py-32"
+      className="relative border-b border-border py-20 sm:py-24 lg:py-28"
     >
       <div className="container">
-        <div className="grid gap-12 lg:grid-cols-[0.75fr_1.25fr] lg:gap-20">
-          {/* Section heading */}
-          <div className="relative">
-            <div
-              aria-hidden="true"
-              className="mb-6 font-mono text-[10rem] font-medium leading-none tracking-[-0.08em] text-section-number/70 md:text-[12rem]"
-            >
-              02
-            </div>
-
-            <div className="-mt-8 md:-mt-10">
-              <p className="font-mono text-xs uppercase tracking-[0.16em] text-primary">
-                About
-              </p>
-
-              <h2
-                id="about-title"
-                className="mt-3 font-display text-4xl font-medium tracking-[-0.03em] text-foreground sm:text-5xl"
-              >
-                Who I am
-              </h2>
-            </div>
-          </div>
-
-          {/* Content */}
-          <div>
-            {/* Main text card */}
-            <div className="relative rounded-md border border-border bg-surface px-6 py-8 sm:px-8 sm:py-10 md:px-10 md:py-12">
-              {/* Orange corner accent */}
-              <span
+        <div className="grid items-start gap-12 lg:grid-cols-[0.75fr_1.25fr] lg:gap-16 xl:gap-20">
+          {/* Section Heading */}
+          <Reveal direction="up" distance={18} duration={800}>
+            <div className="relative">
+              <div
                 aria-hidden="true"
-                className="absolute -left-px -top-px h-12 w-12 border-l border-t border-primary"
-              />
+                className="pointer-events-none select-none font-display text-[clamp(7rem,15vw,12rem)] font-extralight leading-[0.8] tracking-[-0.08em] text-section-number/70"
+              >
+                02
+              </div>
 
-              <div className="max-w-3xl font-body text-base leading-7 text-foreground-muted sm:text-lg sm:leading-8">
-                <p>
-                  I&apos;m an{" "}
-                  <strong className="font-medium text-foreground">
-                    Informatics Engineering student
-                  </strong>{" "}
-                  in my fourth year at Latakia University, with a focused
-                  interest in frontend development — particularly building
-                  responsive, maintainable web applications with{" "}
-                  <strong className="font-medium text-foreground">
-                    React and TypeScript.
-                  </strong>
+              <div className="relative -mt-6 sm:-mt-8">
+                <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-primary sm:text-xs">
+                  About
                 </p>
 
-                <p className="mt-6">
-                  I&apos;ve completed multiple training programs with industry
-                  practitioners, worked through real projects from design to
-                  deployment, and continue expanding my skills in modern
-                  frontend technologies including Next.js, Tailwind CSS, and
-                  state management patterns.
-                </p>
+                <h2
+                  id="about-title"
+                  className="mt-3 font-display text-4xl font-medium leading-tight tracking-[-0.035em] text-foreground sm:text-5xl lg:text-[3.5rem]"
+                >
+                  Who I am
+                </h2>
 
-                <p className="mt-6">
-                  My goal is to build interfaces that are technically solid,
-                  accessible, and genuinely pleasant to use — combining an
-                  engineer&apos;s attention to structure with care for the
-                  end-user experience.
-                </p>
+                <span
+                  aria-hidden="true"
+                  className="mt-6 block h-px w-12 bg-primary/70"
+                />
               </div>
             </div>
+          </Reveal>
 
-            {/* Stats */}
-            <div className="mt-4 grid grid-cols-2 gap-4 xl:grid-cols-4">
-              {highlights.map((highlight) => (
-                <div
-                  key={highlight.label}
-                  className="rounded-md border border-border bg-surface px-5 py-6 sm:px-6 sm:py-7"
-                >
-                  <p className="font-display text-3xl font-medium tracking-[-0.03em] text-primary sm:text-4xl">
-                    {highlight.value}
-                  </p>
+          {/* Section Content */}
+          <div className="min-w-0">
+            {/* About Card */}
+            <Reveal direction="up" distance={20} duration={850} delay={100}>
+              <div className="group relative overflow-hidden rounded-md border border-border bg-surface px-5 py-7 transition-colors duration-300 hover:border-primary/30 sm:px-8 sm:py-9 lg:px-9 lg:py-10">
+                {/* Corner Accents */}
+                <span
+                  aria-hidden="true"
+                  className="pointer-events-none absolute left-0 top-0 h-12 w-12 border-l border-t border-primary/70 transition-all duration-300 group-hover:h-14 group-hover:w-14"
+                />
 
-                  <p className="mt-3 font-mono text-[10px] uppercase leading-5 tracking-[0.08em] text-foreground-muted sm:text-xs">
-                    {highlight.label}
-                  </p>
+                <span
+                  aria-hidden="true"
+                  className="pointer-events-none absolute bottom-0 right-0 h-8 w-8 border-b border-r border-primary/20 transition-colors duration-300 group-hover:border-primary/50"
+                />
+
+                {/* Text Content */}
+                <div className="relative z-10 max-w-3xl space-y-5 font-body text-base font-normal leading-7 text-foreground-muted">
+                  {aboutParagraphs.map((paragraph, index) => (
+                    <p key={index}>
+                      {paragraph.segments.map((segment, segmentIndex) => (
+                        <span
+                          key={segmentIndex}
+                          className={
+                            segment.emphasis
+                              ? "font-medium text-foreground"
+                              : undefined
+                          }
+                        >
+                          {segment.text}
+                        </span>
+                      ))}
+                    </p>
+                  ))}
                 </div>
+              </div>
+            </Reveal>
+
+            {/* Highlights */}
+            <div className="mt-4 grid grid-cols-2 gap-3 sm:gap-4 xl:grid-cols-4">
+              {aboutHighlights.map((highlight, index) => (
+                <Reveal
+                  key={highlight.label}
+                  direction="up"
+                  distance={16}
+                  duration={700}
+                  delay={150 + index * 100}
+                >
+                  <div className="group relative flex min-h-[120px] flex-col justify-between overflow-hidden rounded-md border border-border bg-surface px-4 py-5 transition-colors duration-300 hover:border-primary/40 sm:min-h-[140px] sm:px-5 sm:py-6">
+                    {/* Small Accent */}
+                    <span
+                      aria-hidden="true"
+                      className="pointer-events-none absolute right-0 top-0 h-px w-0 bg-primary transition-all duration-300 ease-standard group-hover:w-full"
+                    />
+
+                    {/* Index */}
+                    <span className="font-mono text-[10px] tracking-wider text-foreground-muted/50">
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+
+                    {/* Value */}
+                    <div>
+                      <p className="font-display text-3xl font-medium tracking-[-0.04em] text-primary sm:text-4xl">
+                        {highlight.value}
+                      </p>
+
+                      <p className="mt-2 font-mono text-[9px] uppercase leading-5 tracking-[0.07em] text-foreground-muted sm:text-[10px] sm:tracking-[0.09em]">
+                        {highlight.label}
+                      </p>
+                    </div>
+                  </div>
+                </Reveal>
               ))}
             </div>
           </div>

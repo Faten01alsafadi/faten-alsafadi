@@ -1,3 +1,4 @@
+
 import type { TrainingExperience } from "@/types";
 
 export const trainingExperience: TrainingExperience[] = [
@@ -8,7 +9,7 @@ export const trainingExperience: TrainingExperience[] = [
     specialization: "React & Advanced Frontend",
     certificate: "Certificate of Attendance",
     description:
-      "Advanced training focused on React development and modern frontend engineering practices, including component architecture and TypeScript integration.",
+      "React-focused training covering modern frontend development practices, component architecture, TypeScript integration, and hands-on application development.",
     technologies: [
       "React",
       "TypeScript",
@@ -23,7 +24,7 @@ export const trainingExperience: TrainingExperience[] = [
     specialization: "Frontend Fundamentals",
     certificate: "Certificate + Recommendation Letter",
     description:
-      "A six-month training program covering essential frontend technologies and professional development practices, with hands-on projects and practical implementation.",
+      "A six-month training program covering essential frontend technologies and development practices, supported by hands-on projects and practical implementation.",
     technologies: ["HTML", "CSS", "JavaScript", "Angular"],
   },
   {
@@ -33,7 +34,7 @@ export const trainingExperience: TrainingExperience[] = [
     title: "Frontend Fundamentals Training",
     specialization: "Web Foundations",
     description:
-      "A practical training program focused on building strong web development foundations and implementing responsive interfaces using core frontend technologies.",
+      "Practical training focused on building strong web development foundations and implementing responsive interfaces using core frontend technologies.",
     technologies: ["HTML", "CSS", "Bootstrap"],
   },
 ];

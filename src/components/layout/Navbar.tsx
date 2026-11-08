@@ -1,78 +1,140 @@
+
 "use client";
-import { Download } from "lucide-react";
+
 import { useEffect, useState } from "react";
+import { FiDownload } from "react-icons/fi";
+import Link from "next/link";
 
 import { navigationLinks } from "@/data/navigation";
-import Link from "next/link";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("");
 
   const closeMenu = () => {
     setIsMenuOpen(false);
   };
 
   useEffect(() => {
+    const sections = navigationLinks
+      .map((link) => document.querySelector(link.href))
+      .filter((section): section is Element => section !== null);
+
+    if (!sections.length) return;
+
+    const updateActiveSection = () => {
+      const activationPoint = window.innerHeight * 0.3;
+
+      const currentSection = sections.find((section) => {
+        const rect = section.getBoundingClientRect();
+
+        return rect.top <= activationPoint && rect.bottom > activationPoint;
+      });
+
+      if (currentSection?.id) {
+        setActiveSection(`#${currentSection.id}`);
+      }
+    };
+
+    const observer = new IntersectionObserver(
+      () => {
+        updateActiveSection();
+      },
+      {
+        rootMargin: "-20% 0px -65% 0px",
+        threshold: 0,
+      }
+    );
+
+    sections.forEach((section) => observer.observe(section));
+
+    updateActiveSection();
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
+
+  useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
-        closeMenu();
+        setIsMenuOpen(false);
       }
     };
 
     const handleResize = () => {
       if (window.innerWidth >= 768) {
-        closeMenu();
+        setIsMenuOpen(false);
       }
     };
 
     window.addEventListener("keydown", handleKeyDown);
-
     window.addEventListener("resize", handleResize);
 
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
-
       window.removeEventListener("resize", handleResize);
     };
   }, []);
 
   return (
-    <header>
+    <header className="sticky top-0 z-50 border-b border-border/70 bg-background/85 backdrop-blur-md">
       <div className="container">
         <nav
           className="flex min-h-20 items-center justify-between"
           aria-label="Main navigation"
         >
-          <div className="flex justify-center items-center gap-2">
-            <div className="font-mono font-normal  border-border-accent border bg-surface-featured text-primary  rounded-xs  w-9 h-9 flex justify-center items-center">
-              <Link href="/">FA</Link>
+          {/* Logo */}
+          <div className="flex items-center justify-center gap-2">
+            <div className="flex h-9 w-9 items-center justify-center rounded-xs border border-border-accent bg-surface-featured font-mono font-normal text-primary">
+              <Link href="/" aria-label="Faten Alsafadi home">
+                FA
+              </Link>
             </div>
+
             <Link href="/" className="text-foreground-muted">
               Faten Alsafadi
             </Link>
           </div>
 
           {/* Desktop Navigation */}
+          <ul className="hidden items-center gap-7 md:flex">
+            {navigationLinks.map((link) => {
+              const isActive = activeSection === link.href;
 
-          <ul className="  gap-7 hidden items-center  md:flex">
-            {navigationLinks.map((link) => (
-              <li key={link.href}>
-                <Link
-                  href={link.href}
-                  className=" text-sm text-foreground-muted transition-colors duration-200 hover:text-foreground"
-                >
-                  {link.label}
-                </Link>
-              </li>
-            ))}
+              return (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    aria-current={isActive ? "location" : undefined}
+                    className={`relative py-2 text-sm transition-colors duration-200 ${
+                      isActive
+                        ? "font-medium text-primary"
+                        : "text-foreground-muted hover:text-foreground"
+                    }`}
+                  >
+                    {link.label}
+
+                    <span
+                      aria-hidden="true"
+                      className={`absolute inset-x-0 -bottom-1 h-px bg-primary transition-transform duration-300 origin-center ${
+                        isActive ? "scale-x-100" : "scale-x-0"
+                      }`}
+                    />
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
 
+          {/* Desktop CV Download */}
           <a
             href="/resume/Faten-Alsafadi-CV.pdf"
             download
-            className="hidden  md:flex justify-center items-center gap-2 rounded-xs border border-border-accent px-5 py-2.5 font-mono text-sm text-primary transition-colors duration-200 hover:bg-primary-soft "
+            className="hidden items-center justify-center gap-2 rounded-xs border border-border-accent px-5 py-2.5 font-mono text-sm text-primary transition-colors duration-200 hover:bg-primary-soft md:flex"
           >
-            <Download size={16} strokeWidth={1.8} aria-hidden="true" /> <span className="font-mono">CV</span>
+            <FiDownload size={16} aria-hidden="true" />
+            <span>Download CV</span>
           </a>
 
           {/* Mobile Menu Button */}
@@ -84,10 +146,6 @@ export default function Navbar() {
             aria-controls="mobile-navigation"
             onClick={() => setIsMenuOpen((current) => !current)}
           >
-            <span className="sr-only">
-              {isMenuOpen ? "Close menu" : "Open menu"}
-            </span>
-
             <span aria-hidden="true" className="flex flex-col gap-1.5">
               <span
                 className={`block h-px w-5 bg-current transition-transform duration-200 ${
@@ -113,32 +171,45 @@ export default function Navbar() {
         {/* Mobile Navigation */}
         <div
           id="mobile-navigation"
+          aria-hidden={!isMenuOpen}
+          inert={!isMenuOpen}
           className={`overflow-hidden transition-[max-height,opacity] duration-300 md:hidden ${
-            isMenuOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+            isMenuOpen ? "max-h-[32rem] opacity-100" : "max-h-0 opacity-0"
           }`}
         >
           <div className="border-t border-border py-6">
             <ul className="flex flex-col gap-5">
-              {navigationLinks.map((link) => (
-                <li key={link.href}>
-                  <a
-                    href={link.href}
-                    onClick={closeMenu}
-                    className="block font-mono text-sm text-foreground-muted transition-colors duration-200 hover:text-primary"
-                  >
-                    {link.label}
-                  </a>
-                </li>
-              ))}
+              {navigationLinks.map((link) => {
+                const isActive = activeSection === link.href;
+
+                return (
+                  <li key={link.href}>
+                    <Link
+                      href={link.href}
+                      onClick={closeMenu}
+                      aria-current={isActive ? "location" : undefined}
+                      className={`block font-mono text-sm transition-colors duration-200 ${
+                        isActive
+                          ? "font-medium text-primary"
+                          : "text-foreground-muted hover:text-primary"
+                      }`}
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                );
+              })}
             </ul>
 
+            {/* Mobile CV Download */}
             <a
               href="/resume/Faten-Alsafadi-CV.pdf"
               download
               onClick={closeMenu}
-              className="mt-6 inline-flex justify-center items-center gap-2  rounded-xs border border-border-accent px-5 py-2.5 font-mono text-sm text-primary transition-colors duration-200 hover:bg-primary-soft "
+              className="mt-6 inline-flex items-center justify-center gap-2 rounded-xs border border-border-accent px-5 py-2.5 font-mono text-sm text-primary transition-colors duration-200 hover:bg-primary-soft"
             >
-              <Download size={16} strokeWidth={1.8} aria-hidden="true" /> <span className="font-mono">CV</span>
+              <FiDownload size={16} aria-hidden="true" />
+              <span>Download CV</span>
             </a>
           </div>
         </div>
